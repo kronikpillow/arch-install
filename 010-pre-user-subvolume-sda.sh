@@ -3,7 +3,7 @@
 echo "Creating a BTRFS flat subvolume layout for Arch"
 
 btrfs su cr /mnt/@
-mkdir -p /mnt/@/{.snapshots,boot,home,opt,mnt/{btrfs,nocow,snap,hdd,usb},root,srv,usr/local,var}
+mkdir -p /mnt/@/{.snapshots,boot,home,opt,mnt/{systm,nocow,snaps,data,usb},root,srv,usr/local,var}
 btrfs su cr /mnt/@opt
 btrfs su cr /mnt/@root
 btrfs su cr /mnt/@srv
@@ -15,8 +15,5 @@ chattr +C /mnt/@var/lib/flatpak
 chattr +C /mnt/@var/lib/libvirt/images
 chattr +C /mnt/@var/lib/machines
 chattr +C /mnt/@var/lib/portables
-btrfs su cr /mnt/@var_pkg
-btrfs su cr /mnt/@var_log
-btrfs su cr /mnt/@var_tmp
 btrfs su cr /mnt/@snapshots
 printf "\e[1;32mDone! \e[0m"
