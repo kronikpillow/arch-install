@@ -1,0 +1,9 @@
+[Unit]
+Description=Run snap-sync backup
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/snap-sync --UUID 775a35d2-7651-4abf-9166-4d2353cee44d --subvolid 5 --noconfirm
