@@ -3,6 +3,7 @@
 echo "configuring time zone and locale"
 ln -sf /usr/share/zoneinfo/Europe/Belgrade /etc/localtime
 hwclock --systohc
+cp /etc/locale.gen /etc/locale.gen.bak
 sed -i '160 s/# *//' /etc/locale.gen
 sed -i '177 s/# *//' /etc/locale.gen
 sed -i '436 s/# *//' /etc/locale.gen

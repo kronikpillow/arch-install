@@ -1,6 +1,7 @@
 #!/bin/sh
 
 echo "configuring grub settings"
+cp /etc/default/grub /etc/default/grub.bak
 sed -i "s/GRUB_DEFAULT=0/GRUB_DEFAULT=save/" /etc/default/grub
 sed -i '6 c\GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet nowatchdog amdgpu.dc=0 zswap.enabled=0"' /etc/default/grub
 sed -i "s/#GRUB_SAVEDEFAULT=true/GRUB_SAVEDEFAULT=true/" /etc/default/grub

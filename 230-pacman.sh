@@ -1,5 +1,7 @@
 #!/bin/sh
 echo "configuring pacman settings"
+cp /etc/pacman.conf /etc/pacman.conf.bak
+cp /etc/makepkg.conf /etc/makepkg.conf.bak
 grep -q "ILoveCandy" /etc/pacman.conf || sed -i "/#VerbosePkgLists/a ILoveCandy" /etc/pacman.conf
 sed -i "17 s/# *//;
 s/^#Color$/Color/;
