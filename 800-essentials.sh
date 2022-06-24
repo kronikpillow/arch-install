@@ -11,14 +11,21 @@ usbutils \
 lsof \
 strace \
 hdparm \
-#lha \
-#lzop \
-#p7zip \
-#unace \
-#zip \
-#github-cli \
-#expac \
-
+cpio \
+lha \
+lzop \
+p7zip \
+unace \
+unrar \
+zip \
+lrzip \
+ncompress \
+lzip \
+pigz \
+pbzip2 \
+github-cli \
+expac
 
 yay -S --needed inxi \
-downgrade
+downgrade \
+snapper-rollback
