@@ -1,0 +1,10 @@
+[Unit]
+Description=Powertop tunings
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/bin/powertune
+
+[Install]
+WantedBy=multi-user.target

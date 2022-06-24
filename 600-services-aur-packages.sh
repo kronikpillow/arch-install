@@ -10,3 +10,5 @@ systemctl enable snapper-cleanup.timer
 systemctl start snapper-cleanup.timer
 systemctl enable grub-btrfs.path
 systemctl start grub-btrfs.path
+systemctl enable powertune.service
+systemctl start powertune.service
