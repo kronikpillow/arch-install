@@ -14,4 +14,6 @@ sudo pacman -S --needed lib32-mesa \
 	mesa-utils \
 	lib32-mesa-utils \
 	opencl-mesa \
-	lib32-opencl-mesa
+	lib32-opencl-mesa \
+	vulkan-mesa-layers \
+	lib32-vulkan-mesa-layers
