@@ -11,6 +11,15 @@ usbutils \
 lsof \
 strace \
 hdparm \
+pigz \
+pbzip2 \
+github-cli \
+quota-tools \
+gnuplot \
+mlocate \
+ufw \
+weechat \
+expac \
 cpio \
 lha \
 lzop \
@@ -20,11 +29,7 @@ unrar \
 zip \
 lrzip \
 ncompress \
-lzip \
-pigz \
-pbzip2 \
-github-cli \
-expac
+lzip
 
 yay -S --needed inxi \
 downgrade \
