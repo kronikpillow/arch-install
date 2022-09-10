@@ -6,8 +6,8 @@ hwclock --systohc
 cp /etc/locale.gen /etc/locale.gen.bak
 sed -i '160 s/# *//' /etc/locale.gen
 sed -i '177 s/# *//' /etc/locale.gen
-sed -i '436 s/# *//' /etc/locale.gen
 sed -i '437 s/# *//' /etc/locale.gen
+sed -i '438 s/# *//' /etc/locale.gen
 locale-gen
 touch /etc/locale.conf
 grep -q "LANG=en_US.UTF-8" /etc/locale.conf || echo "LANG=en_US.UTF-8" >> /etc/locale.conf
