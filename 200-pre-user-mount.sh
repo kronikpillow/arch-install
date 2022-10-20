@@ -20,6 +20,6 @@ mount -o defaults,noatime,autodefrag,compress=zstd:1,commit=120,space_cache=v2,s
 mount -o defaults,noatime,autodefrag,compress=zstd:1,commit=120,space_cache=v2,subvol=@machines /dev/sda2 /mnt/var/lib/machines
 mount -o defaults,noatime,autodefrag,compress=zstd:1,commit=120,space_cache=v2,subvol=@portables /dev/sda2 /mnt/var/lib/portables
 #mount -o defaults,noatime,autodefrag,compress=zstd:1,commit=120,space_cache=v2,subvolid=5 /dev/sda2 /mnt/mnt/btrfs
-mount -o defaults /dev/sdb3 /mnt/mnt/data
+mount -o defaults /dev/sdb3 /mnt/mnt/backup
 
 printf "\e[1;32mDone! \e[0m"

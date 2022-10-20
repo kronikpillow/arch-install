@@ -28,7 +28,8 @@ lzip \
 autoconf-archive \
 cmake \
 jsoncpp \
-rhash
+rhash \
+python-pip \
 
 #yay -S --needed inxi \
 #downgrade \
