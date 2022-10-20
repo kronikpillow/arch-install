@@ -30,6 +30,13 @@ cmake \
 jsoncpp \
 rhash \
 python-pip \
+python-pynvim \
+go \
+go-tools \
+nodejs \
+npm \
+ruby \
+ruby-irb \
 
 #yay -S --needed inxi \
 #downgrade \
