@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "pacstrapping the base system"
-pacstrap /mnt base base-devel linux linux-firmware btrfs-progs reiserfsprogs xfsprogs dosfstools exfatprogs ntfs-3g alsa-firmware alsa-utils networkmanager neovim man-db man-pages texinfo zsh git rsync wget reflector snapper snap-sync cronie efibootmgr grub os-prober grub-btrfs intel-ucode zram-generator
+pacstrap /mnt base base-devel linux linux-firmware mtools dosfstools exfatprogs ntfs-3g btrfs-progs reiserfsprogs alsa-firmware alsa-utils networkmanager neovim man-db man-pages texinfo zsh git rsync wget reflector snapper cronie efibootmgr grub os-prober grub-btrfs intel-ucode zram-generator polkit
 
 #echo "generating fstab"
 genfstab -U /mnt >> /mnt/etc/fstab

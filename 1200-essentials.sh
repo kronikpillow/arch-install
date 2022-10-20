@@ -1,7 +1,5 @@
-sudo pacman -S --needed xorg-apps \
-xorg-fonts \
-xorg-drivers \
-pacutils \
+sudo pacman -Sy --needed pacutils \
+pacman-contrib \
 linux-tools \
 powertop \
 radeontop \
@@ -13,12 +11,9 @@ strace \
 hdparm \
 pigz \
 pbzip2 \
-github-cli \
 quota-tools \
-gnuplot \
 mlocate \
 ufw \
-weechat \
 expac \
 cpio \
 lha \
@@ -29,8 +24,12 @@ unrar \
 zip \
 lrzip \
 ncompress \
-lzip
+lzip \
+autoconf-archive \
+cmake \
+jsoncpp \
+rhash
 
-yay -S --needed inxi \
-downgrade \
-snapper-rollback
+#yay -S --needed inxi \
+#downgrade \
+##snapper-rollback

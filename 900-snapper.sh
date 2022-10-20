@@ -41,3 +41,6 @@ sed -i '52 c\TIMELINE_LIMIT_DAILY="4"' /etc/snapper/configs/home
 sed -i '53 c\TIMELINE_LIMIT_WEEKLY="2"' /etc/snapper/configs/home
 sed -i '54 c\TIMELINE_LIMIT_MONTHLY="1"' /etc/snapper/configs/home
 sed -i '55 c\TIMELINE_LIMIT_YEARLY="0"' /etc/snapper/configs/home
+
+rm /etc/cron.hourly/snapper
+rm /etc/cron.daily/snapper

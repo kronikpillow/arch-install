@@ -1,5 +1,5 @@
 #!/bin/sh
-sudo pacman -S --needed lib32-mesa \
+pacman -Sy --needed lib32-mesa \
 	xf86-video-amdgpu \
 	vulkan-radeon \
 	lib32-vulkan-radeon \
