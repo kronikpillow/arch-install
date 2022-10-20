@@ -20,7 +20,7 @@ btrfs su cr /mnt/@snapshots_arch
 btrfs su cr /mnt/@snapshots_home
 
 # setup mount points
-mkdir -p /mnt/@/{.snapshots,boot,home,mnt/{btrfs,data,usb,c,d},opt,root,srv,usr/local,var/{cache/pacman/pkg,lib/{docker,flatpak,libvirt,machines,portables},log,tmp}}
+mkdir -p /mnt/@/{.snapshots,boot,home,mnt/{btrfs,data,backup,usb,c,d},opt,root,srv,usr/local,var/{cache/pacman/pkg,lib/{docker,flatpak,libvirt,machines,portables},log,tmp}}
 mkdir -p /mnt/@home/.snapshots
 
 # nodatacow, wondering if this is really needed?
