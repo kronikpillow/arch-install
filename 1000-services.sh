@@ -11,6 +11,7 @@ systemctl start cronie.service
 
 systemctl enable snapper-timeline.timer
 systemctl start snapper-timeline.timer
+
 systemctl enable snapper-cleanup.timer
 systemctl start snapper-cleanup.timer
 
@@ -19,6 +20,7 @@ systemctl start grub-btrfs.path
 
 systemctl enable reflector.service
 systemctl start reflector.service
+
 systemctl enable reflector.timer
 systemctl start reflector.timer
 
