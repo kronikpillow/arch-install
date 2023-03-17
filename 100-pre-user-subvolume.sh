@@ -9,13 +9,13 @@ btrfs su cr /mnt/@root
 btrfs su cr /mnt/@srv
 btrfs su cr /mnt/@local
 btrfs su cr /mnt/@pkg
-btrfs su cr /mnt/@log
-btrfs su cr /mnt/@tmp
 btrfs su cr /mnt/@docker
 btrfs su cr /mnt/@flatpak
 btrfs su cr /mnt/@libvirt
 btrfs su cr /mnt/@machines
 btrfs su cr /mnt/@portables
+btrfs su cr /mnt/@log
+btrfs su cr /mnt/@tmp
 btrfs su cr /mnt/@.snapshots
 btrfs su cr /mnt/@home.snapshots
 
