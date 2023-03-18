@@ -20,5 +20,7 @@ mount -o defaults,noatime,autodefrag,compress=zstd:1,commit=120,space_cache=v2,s
 mount -o defaults,noatime,autodefrag,compress=zstd:1,commit=120,space_cache=v2,subvol=@log /dev/sda2 /mnt/var/log
 mount -o defaults,noatime,autodefrag,compress=zstd:1,commit=120,space_cache=v2,subvol=@tmp /dev/sda2 /mnt/var/tmp
 mount -o defaults,noatime,autodefrag,compress=zstd:1,commit=120,space_cache=v2,subvolid=5 /dev/sda2 /mnt/mnt/system
+mount -o ntfs /dev/sdb3 /mnt/windows-c
+mount -o ntfs /dev/sdb5 /mnt/windows-d
 
 printf "\e[1;32mDone! \e[0m"
