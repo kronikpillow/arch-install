@@ -39,5 +39,5 @@ systemctl start snapper-timeline.timer
 systemctl enable snapper-cleanup.timer
 systemctl start snapper-cleanup.timer
 
-systemctl enable grub-btrfs.path
-systemctl start grub-btrfs.path
+systemctl enable grub-btrfsd.service
+systemctl start grub-btrfsd.service

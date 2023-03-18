@@ -7,7 +7,7 @@ fi
 
 sed -i "7 c\MODULES=(btrfs)" /etc/mkinitcpio.conf
 sed -i "14 c\BINARIES=(/usr/bin/btrfs)" /etc/mkinitcpio.conf
-sed -i "52 c\HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)" /etc/mkinitcpio.conf
+# sed -i "52 c\HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)" /etc/mkinitcpio.conf
 
 mkinitcpio -P
 
