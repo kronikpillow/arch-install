@@ -1,14 +1,14 @@
 #!/bin/sh
 echo "configuring pacman settings"
 
-if [ ! -f /etc/pacman.conf.bak ]; 
-then cp /etc/pacman.conf /etc/pacman.conf.bak && echo "pacman.conf backed up to /etc/pacman.conf.bak";
-else echo "pacman.conf already backed up";
+if [ ! -f /etc/pacman.conf.bak ];
+then cp /etc/pacman.conf /etc/pacman.conf.bak && echo "/etc/pacman.conf backed up";
+else echo "/etc/pacman.conf already backed up";
 fi
 
-if [ ! -f /etc/makepkg.conf.bak ]; 
-then cp /etc/makepkg.conf /etc/makepkg.conf.bak && echo "makepkg.conf backed up to /etc/pacman.conf.bak";
-else echo "makepkg.conf already backed up";
+if [ ! -f /etc/xdg/reflector/reflector.conf.bak ];
+then cp /etc/xdg/reflector/reflector.conf /etc/reflector/reflector.conf.bak && echo "/etc/reflector/reflector.conf backed up";
+else echo "/etc/reflector/reflector.conf already backed up";
 fi
 
 grep -q "ILoveCandy" /etc/pacman.conf || sed -i "/#VerbosePkgLists/a ILoveCandy" /etc/pacman.conf
