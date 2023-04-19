@@ -18,19 +18,6 @@ btrfs su cr /mnt/@arch/boot/grub
 
 btrfs su cr /mnt/@arch/home
 btrfs su cr /mnt/@arch/home/.snapshots
-mkdir -p /mnt/@arch/home/.snapshots/1
-btrfs su cr /mnt/@arch/home/.snapshots/1/snapshot
-touch /mnt/@arch/home/.snapshots/1/info.xml
-echo "
-<?xml version="1.0"?>
-<snapshot>
-	<type>single</type>
-	<num>1</num>
-	<date></date>
-	<description>First Root Filesystem Created at Installation</description>
-</snapshot>" >> /mnt/@arch/home/.snapshots/1/info.xml
-
-echo $(date +"%d %m %Y %H:%M:%S") > /mnt/@arch/home/.snapshots/1/date
 
 mkdir -p /mnt/@arch/{boot,usr,var/{cache/pacman/pkg,lib}
 

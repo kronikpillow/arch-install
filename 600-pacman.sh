@@ -6,6 +6,11 @@ then cp /etc/pacman.conf /etc/pacman.conf.bak && echo "/etc/pacman.conf backed u
 else echo "/etc/pacman.conf already backed up";
 fi
 
+if [ ! -f /etc/pacman.d/mirrorlist.bak ];
+then cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak && echo "/etc/pacman.d/mirrorlist backed up";
+else echo "/etc/pacman.d/mirrorlist already backed up";
+fi
+
 if [ ! -f /etc/xdg/reflector/reflector.conf.bak ];
 then cp /etc/xdg/reflector/reflector.conf /etc/reflector/reflector.conf.bak && echo "/etc/reflector/reflector.conf backed up";
 else echo "/etc/reflector/reflector.conf already backed up";
@@ -18,6 +23,7 @@ s/^#VerbosePkgLists$/VerbosePkgLists/;
 s/^#ParallelDownloads = 5$/ParallelDownloads = 5/;
 94 s/# *//;
 95 s/# *//;" /etc/pacman.conf
+
 mkdir -pv /etc/pacman.d/hooks
 cp -r etc/pacman.d/hooks/* /etc/pacman.d/hooks/
 

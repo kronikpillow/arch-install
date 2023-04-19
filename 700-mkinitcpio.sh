@@ -1,5 +1,6 @@
 #!/bin/sh
 echo "configuring mkinitcpio settings"
+
 if [ ! -f /etc/mkinitcpio.conf.bak ];
 then cp /etc/mkinitcpio.conf /etc/mkinitcpio.conf.bak && echo "/etc/mkinitcpio.conf backed up";
 else echo "/etc/mkinitcpio.conf already backed up";
