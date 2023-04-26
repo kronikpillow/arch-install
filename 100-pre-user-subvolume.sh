@@ -1,7 +1,7 @@
 #!/bin/sh
 echo "Creating a BTRFS flat subvolume layout for Arch"
 btrfs su cr /mnt/@
-mkdir -p /mnt/@/{boot,usr,var/{cache/pacman,lib}
+mkdir -p /mnt/@/{boot,usr,var/{cache/pacman,lib}}
 btrfs su cr /mnt/@/var/tmp
 btrfs su cr /mnt/@/var/spool
 btrfs su cr /mnt/@/var/log
