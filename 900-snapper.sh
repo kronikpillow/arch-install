@@ -7,7 +7,7 @@ rm -r /.snapshots
 #umount /home/.snapshots
 #rm -r /home/.snapshots
 
-snapper -c root create-config /
+snapper --no-dbus -c root create-config /
 btrfs subvolume delete /.snapshots
 
 #snapper -c home create-config /home/
@@ -21,8 +21,8 @@ mkdir /.snapshots
 mount -a
 
 chmod 750 /.snapshots
-#chmod a+rx /.snapshots
-#chown :wheel /.snapshots
+chmod a+rx /.snapshots
+chown :wheel /.snapshots
 
 #chmod a+rx /home/.snapshots
 #chown :wheel /home/.snapshots
@@ -41,5 +41,5 @@ sed -i '55 c\TIMELINE_LIMIT_YEARLY="0"' /etc/snapper/configs/root
 #sed -i '54 c\TIMELINE_LIMIT_MONTHLY="1"' /etc/snapper/configs/home
 #sed -i '55 c\TIMELINE_LIMIT_YEARLY="0"' /etc/snapper/configs/home
 
-#rm /etc/cron.hourly/snapper
-#rm /etc/cron.daily/snapper
+rm /etc/cron.hourly/snapper
+rm /etc/cron.daily/snapper
