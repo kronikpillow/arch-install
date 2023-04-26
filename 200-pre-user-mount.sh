@@ -1,10 +1,10 @@
 #!/bin/sh
 echo "Mounting the BTRFS flat subvolume layout for Arch to /mnt"
 mount -o defaults,noatime,compress=zstd:1,space_cache=v2,autodefrag,commit=120 /dev/sda2 /mnt
-mkdir -p /mnt/{.snapshots,boot/{efi,grub},home,mnt/{btrfs,data,usb,windows-c,windows-d},opt,root,srv,usr/local,var/{cache/pacman/pkg,lib/{containers,docker,flatpak,libvirt,machines,portables},log,spool,tmp}}
+mkdir -p /mnt/{.snapshots,boot/{EFI,grub},home,mnt/{btrfs,data,usb,windows-c,windows-d},opt,root,srv,usr/local,var/{cache/pacman/pkg,lib/{containers,docker,flatpak,libvirt,machines,portables},log,spool,tmp}}
 mount -o defaults,noatime,compress=zstd:1,space_cache=v2,autodefrag,commit=120,subvol=@/.snapshots /dev/sda2 /mnt/.snapshots
 mount -o defaults,noatime,compress=zstd:1,space_cache=v2,autodefrag,commit=120,subvol=@/boot/grub /dev/sda2 /mnt/boot/grub
-mount -o defaults,noatime /dev/sda1 /mnt/boot/efi
+mount -o defaults,noatime /dev/sda1 /mnt/boot/EFI
 mount -o defaults,noatime,compress=zstd:1,space_cache=v2,autodefrag,commit=120,subvol=@/home /dev/sda2 /mnt/home
 mount -o defaults,noatime,compress=zstd:1,space_cache=v2,autodefrag,commit=120,subvol=@/opt /dev/sda2 /mnt/opt
 mount -o defaults,noatime,compress=zstd:1,space_cache=v2,autodefrag,commit=120,subvol=@/root /dev/sda2 /mnt/root

@@ -17,7 +17,7 @@ btrfs su cr /mnt/@/srv
 btrfs su cr /mnt/@/root
 btrfs su cr /mnt/@/opt
 btrfs su cr /mnt/@/home
-btrfs su cr /mnt/@/boot
+btrfs su cr /mnt/@/boot/grub
 btrfs su cr /mnt/@/.snapshots
 mkdir -p /mnt/@/.snapshots/1
 btrfs su cr /mnt/@/.snapshots/1/snapshot
@@ -41,7 +41,6 @@ chattr +C /mnt/@/var/lib/machines
 chattr +C /mnt/@/var/lib/libvirt
 chattr +C /mnt/@/var/lib/flatpak
 chattr +C /mnt/@/var/lib/docker
-chattr +C /mnt/@/var/lib/containers
 chattr +C /mnt/@/var/lib/containers
 chattr +C /mnt/@/var/cache/pacman/pkg
 
