@@ -17,9 +17,6 @@ btrfs su cr /mnt/@/srv
 btrfs su cr /mnt/@/root
 btrfs su cr /mnt/@/opt
 btrfs su cr /mnt/@/home
-btrfs su cr /mnt/@/home/kronikpillow
-btrfs su cr /mnt/@/home/.cache
-btrfs su cr /mnt/@/home/.snapshots
 btrfs su cr /mnt/@/boot/grub
 btrfs su cr /mnt/@/.snapshots
 mkdir -p /mnt/@/.snapshots/1
@@ -32,7 +29,7 @@ echo "
 	<num>1</num>
 	<date></date>
 	<description>First Root Filesystem Created at Installation</description>
-</snapshot>" >> /mnt/@/.snapshoto/1/info.xml
+</snapshot>" >> /mnt/@/.snapshots/1/info.xml
 btrfs su cr /mnt/@home/.snapshots/1/snapshot
 
 
