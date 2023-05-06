@@ -1,10 +1,5 @@
 #!/bin/sh
 
-if [ ! -f /etc/updatedb.conf.bak ];
-then cp /etc/updatedb.conf /etc/updatedb.conf.bak && echo "/etc/updatedb.conf backed up";
-else echo "/etc/reflector/reflector.conf already backed up";
-fi
-
 timedatectl set-timezone Europe/Belgrade
 timedatectl set-ntp true
 
@@ -30,8 +25,11 @@ systemctl enable reflector.timer
 systemctl start reflector.timer
 systemctl start reflector.service
 
-# systemctl enable powertune.service
-# systemctl start powertune.service
+chmod +x usr/local/bin/powertune
+cp etc/systemd/system/powertune.service /etc/systemd/system/
+cp usr/local/bin/powertune /usr/local/bin/
+systemctl enable powertune.service
+systemctl start powertune.service
 
 # systemctl enable ufw.service
 
