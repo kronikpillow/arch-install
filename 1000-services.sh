@@ -1,5 +1,17 @@
 #!/bin/sh
 
+cp -r etc/docker/* /etc/
+cp -r etc/pacman.d/* /etc/pacman.d/
+cp -r etc/pam.d/* /etc/pam.d/
+cp -r etc/polkit-1/* /etc/polkit-1/
+cp -r etc/snapper/* /etc/snapper/
+cp -r etc/sudoers.d/* /etc/sudoers.d/
+#cp -r etc/sysctl.d/* /etc/sysctl.d/
+cp -r etc/systemd/* /etc/systemd/
+cp -r etc/xdg/* /etc/xdg/
+chmod +x usr/local/bin/powertune
+cp -r usr/* /usr/
+
 timedatectl set-timezone Europe/Belgrade
 timedatectl set-ntp true
 
@@ -25,9 +37,6 @@ systemctl enable reflector.timer
 systemctl start reflector.timer
 systemctl start reflector.service
 
-chmod +x usr/local/bin/powertune
-cp etc/systemd/system/powertune.service /etc/systemd/system/
-cp usr/local/bin/powertune /usr/local/bin/
 systemctl enable powertune.service
 systemctl start powertune.service
 
