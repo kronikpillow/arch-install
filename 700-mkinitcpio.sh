@@ -1,4 +1,7 @@
 #!/bin/sh
+
+touch /etc/vconsole.conf
+
 echo "configuring mkinitcpio settings"
 
 if [ ! -f /etc/mkinitcpio.conf.bak ];
@@ -6,9 +9,9 @@ then cp /etc/mkinitcpio.conf /etc/mkinitcpio.conf.bak && echo "/etc/mkinitcpio.c
 else echo "/etc/mkinitcpio.conf already backed up";
 fi
 
-sed -i "7 c\MODULES=(btrfs)" /etc/mkinitcpio.conf
+sed -i "7 c\MODULES=(btrfs amdgpu)" /etc/mkinitcpio.conf
 sed -i "14 c\BINARIES=(/usr/bin/btrfs)" /etc/mkinitcpio.conf
-sed -i "52 c\HOOKS=(base systemd autodetect keyboard sd-vconsole modconf block filesystems fsck)" /etc/mkinitcpio.conf
+sed -i "52 c\HOOKS=(base systemd autodetect keyboard sd-vconsole modconf block filesystems fsck grub-btrfs-overlayfs)" /etc/mkinitcpio.conf
 
 mkinitcpio -P
 

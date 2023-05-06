@@ -22,26 +22,25 @@ btrfs su cr /mnt/@/.snapshots
 mkdir -p /mnt/@/.snapshots/1
 btrfs su cr /mnt/@/.snapshots/1/snapshot
 touch /mnt/@/.snapshots/1/info.xml
-echo "
-<?xml version="1.0"?>
+echo "<?xml version="1.0"?>
 <snapshot>
-	<type>single</type>
-	<num>1</num>
-	<date>$(which date)</date>
-	<description>First Root Filesystem Created at Installation</description>
+  <type>single</type>
+  <num>1</num>
+  <date>$(date +%F %H:M:%S)</date>
+  <description>first root filesystem</description>
 </snapshot>" >> /mnt/@/.snapshots/1/info.xml
 
 btrfs subvolume set-default $(btrfs subvolume list /mnt | grep "@/.snapshots/1/snapshot" | grep -oP '(?<=ID )[0-9]+') /mnt
 
-chattr +C /mnt/@/var/tmp
-chattr +C /mnt/@/var/spool
-chattr +C /mnt/@/var/log
-chattr +C /mnt/@/var/lib/portables
-chattr +C /mnt/@/var/lib/machines
-chattr +C /mnt/@/var/lib/libvirt
-chattr +C /mnt/@/var/lib/flatpak
-chattr +C /mnt/@/var/lib/docker
-chattr +C /mnt/@/var/lib/containers
-chattr +C /mnt/@/var/cache/pacman/pkg
+#chattr +C /mnt/@/var/tmp
+#chattr +C /mnt/@/var/spool
+#chattr +C /mnt/@/var/log
+#chattr +C /mnt/@/var/lib/portables
+#chattr +C /mnt/@/var/lib/machines
+#chattr +C /mnt/@/var/lib/libvirt
+#chattr +C /mnt/@/var/lib/flatpak
+#chattr +C /mnt/@/var/lib/docker
+#chattr +C /mnt/@/var/lib/containers
+#chattr +C /mnt/@/var/cache/pacman/pkg
 
-printf "\e[1;32m Remember to go to edit /mnt/@/.snapshots/1/info.xml and move current date and time to the date row between <date></date> and remove the excess date file \e[0m"
+printf "\e[1;32m Btrfs subvolume layout with snapper rollback capabilities created. \e[0m"
