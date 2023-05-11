@@ -1,12 +1,12 @@
 ###audio
-yay -Sy --needed --noconfirm alsa-firmware \
-  alsa-plugins \
-  alsa-utils \
-  wireplumber \
-  pipewire-alsa \
-  pipewire-jack \
-  pipewire-pulse \
-  rtkit
+# yay -Sy --needed --noconfirm alsa-firmware \
+#   alsa-plugins \
+#   alsa-utils \
+#   wireplumber \
+#   pipewire-alsa \
+#   pipewire-jack \
+#   pipewire-pulse \
+#   rtkit
 
 yay -Sy --needed --noconfirm gst-libav \
   gst-plugins-bad \
@@ -19,7 +19,8 @@ yay -Sy --needed --noconfirm gst-libav \
   gstreamer \
   gstreamer-vaapi \
   libdvdcss \
-  pavucontrol
+  pavucontrol \
+  pulsemixer
 
 yay -Sy --needed --noconfirm lib32-pipewire \
   lib32-pipewire-jack \
@@ -29,16 +30,16 @@ yay -Sy --needed --noconfirm lib32-pipewire \
   lib32-gstreamer
 
 ###file management
-yay -Sy --needed --noconfirm gvfs \
-  gvfs-afc \
-  gvfs-gphoto2 \
-  gvfs-mtp \
-  gvfs-nfs \
-  gvfs-smb \
-  mtpfs \
-  udiskie \
-  udisks2 \
-  xdg-user-dirs
+# yay -Sy --needed --noconfirm gvfs \
+#   gvfs-afc \
+#   gvfs-gphoto2 \
+#   gvfs-mtp \
+#   gvfs-nfs \
+#   gvfs-smb \
+#   mtpfs \
+#   udiskie \
+#   udisks2 \
+#   xdg-user-dirs
 
 ###printers
 # yay -Sy --needed cups \
@@ -50,7 +51,7 @@ yay -Sy --needed --noconfirm gvfs \
 #   system-config-printer
 
 ###tumbler
-yay -Sy --needed --noconfirm  tumbler \
+pacman -Sy --needed --noconfirm  tumbler \
   ffmpegthumbnailer \
   freetype2 \
   libgsf \
@@ -58,10 +59,9 @@ yay -Sy --needed --noconfirm  tumbler \
   poppler-glib \
   poppler-qt5
 
-yay -Sy --needed --noconfirm lf \
+pacman -Sy --needed --noconfirm lf \
   pacman-contrib \
   pacutils \
-  downgrade \
   inxi \
   powertop \
   radeontop \
@@ -93,3 +93,27 @@ yay -Sy --needed --noconfirm lf \
   jsoncpp \
   rhash \
   # linux-tools \
+
+yay -Sy --needed --noconfirm mpd \
+  mpv \
+  mpc \
+  ncmpcpp \
+  newsboat \
+  abook \
+  lynx \
+  xclip \
+  wl-clipboard \
+  xdotool \
+  yt-dlp \
+  zathura \
+  zathura-pdf-mupdf \
+  poppler \
+  mediainfo \
+  fzf \
+  bat \
+  task-spooler \
+  simple-mtpfs \
+  htop-vim \
+  mutt-wizard-git \
+  socat \
+  moreutils \

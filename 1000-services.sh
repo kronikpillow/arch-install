@@ -2,7 +2,7 @@
 cp -r etc/docker /etc/
 cp -r etc/polkit-1/* /etc/polkit-1/
 cp -r etc/sudoers.d/* /etc/sudoers.d/
-#cp -r etc/sysctl.d/* /etc/sysctl.d/
+cp -r etc/sysctl.d/* /etc/sysctl.d/
 cp -r etc/systemd/* /etc/systemd/
 chmod +x usr/local/bin/powertune
 cp -r usr/* /usr/
