@@ -35,6 +35,9 @@ systemctl start reflector.service
 systemctl enable powertune.service
 systemctl start powertune.service
 
+systemctl enable avahi-daemon.service
+systemctl start avahi-daemon.service
+
 systemctl enable firewalld.service
 systemctl start firewalld.service
 firewall-cmd --set-default-zone=home
