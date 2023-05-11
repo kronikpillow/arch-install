@@ -12,10 +12,10 @@ s/^#Color$/Color/;
 s/^#VerbosePkgLists$/VerbosePkgLists/;
 s/^#ParallelDownloads = 5$/ParallelDownloads = 5/;
 94 s/# *//;
-95 s/# *//;' /etc/pacman.conf
+95 s/# *//;" /etc/pacman.conf
 
 mkdir -pv /etc/pacman.d/hooks
-cp -r etc/pacman.d/hooks/* /etc/pacman.d/hooks/
+#cp -r etc/pacman.d/hooks/* /etc/pacman.d/hooks/
 
 echo "configuring reflector settings"
 if [ ! -f /etc/pacman.d/mirrorlist.bak ];

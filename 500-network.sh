@@ -19,6 +19,8 @@ then cp /etc/hosts /etc/hosts.bak && echo "/etc/hosts backed up";
 else echo "/etc/hosts already backed up";
 fi
 
+cp -r etc/NetworkManager/conf.d/* /etc/NetworkManager/conf.d
+
 systemctl enable NetworkManager
 
 printf "\e[1;32mDone! \e[0m"
