@@ -3,17 +3,17 @@ echo "fixing .snapshots subvolume permissions"
 umount /.snapshots
 rm -r /.snapshots
 
-umount /home/.snapshots
-rm -r /home/.snapshots
+umount /home/kronikpillow/.snapshots
+rm -r /home/kronikpillow/.snapshots
 
 snapper --no-dbus -c root create-config /
 btrfs subvolume delete /.snapshots
 
-snapper --no-dbus -c home create-config /home
-btrfs subvolume delete /home/.snapshots
+snapper --no-dbus -c home create-config /home/kronikpillow
+btrfs subvolume delete /home/kronikpillow/.snapshots
 
-mkdir /.snapshots
-mkdir /home/.snapshots
+mkdir -p /.snapshots
+mkdir -p /home/kronikpillow/.snapshots
 
 mount -a
 
@@ -21,9 +21,9 @@ chmod 750 /.snapshots
 chmod a+rx /.snapshots
 chown :wheel /.snapshots
 
-chmod 750 /home/.snapshots
-chmod a+rx /home/.snapshots
-chown :wheel /home/.snapshots
+chmod 750 /home/kronikpillow/.snapshots
+chmod a+rx /home/kronikpillow/.snapshots
+chown :wheel /home/kronikpillow/.snapshots
 printf "\e[1;32mDone! \e[0m"
 
 echo "configuring root snapper config"

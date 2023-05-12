@@ -1,7 +1,7 @@
 #!/bin/sh
 echo "Creating a BTRFS flat subvolume layout for root"
 btrfs su cr /mnt/@
-mkdir -p /mnt/@/{boot,home,kronikpillow/.local/share,usr,var/lib}
+mkdir -p /mnt/@/{boot,usr,var/lib}
 btrfs su cr /mnt/@/var/tmp
 btrfs su cr /mnt/@/var/spool
 btrfs su cr /mnt/@/var/log
@@ -17,14 +17,16 @@ btrfs su cr /mnt/@/srv
 btrfs su cr /mnt/@/root
 btrfs su cr /mnt/@/opt
 btrfs su cr /mnt/@/boot/grub
-btrfs su cr /mnt/@/kronikpillow/.cache
-btrfs su cr /mnt/@/kronikpillow/.local/share/Steam
-btrfs su cr /mnt/@/kronikpillow/.var
-btrfs su cr /mnt/@/kronikpillow/Downloads
-btrfs su cr /mnt/@/kronikpillow/Music
-btrfs su cr /mnt/@/kronikpillow/Pictures
-btrfs su cr /mnt/@/kronikpillow/Videos
+btrfs su cr /mnt/@/kronikpillow
 btrfs su cr /mnt/@/home
+btrfs su cr /mnt/@/home/.cache
+mkdir -p /mnt/@/home/.local/share
+btrfs su cr /mnt/@/home/.local/share/Steam
+btrfs su cr /mnt/@/home/.var
+btrfs su cr /mnt/@/home/Downloads
+btrfs su cr /mnt/@/home/Music
+btrfs su cr /mnt/@/home/Pictures
+btrfs su cr /mnt/@/home/Videos
 btrfs su cr /mnt/@/home/.snapshots
 btrfs su cr /mnt/@/.snapshots
 mkdir -p /mnt/@/.snapshots/1
