@@ -35,14 +35,14 @@ systemctl start reflector.service
 systemctl enable powertune.service
 systemctl start powertune.service
 
-systemctl enable avahi-daemon.service
-systemctl start avahi-daemon.service
+# systemctl enable avahi-daemon.service
+# systemctl start avahi-daemon.service
 
 systemctl enable firewalld.service
 systemctl start firewalld.service
 firewall-cmd --set-default-zone=home
-firewall-cmd --add-port=1025-65535/tcp --permanent
-firewall-cmd --add-port=1025-65535/udp --permanent
+# firewall-cmd --add-port=1025-65535/tcp --permanent
+# firewall-cmd --add-port=1025-65535/udp --permanent
 firewall-cmd --reload
 
 # systemctl enable snapper-timeline.timer

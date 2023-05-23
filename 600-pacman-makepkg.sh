@@ -11,8 +11,8 @@ sed -i "17 s/# *//;
 s/^#Color$/Color/;
 s/^#VerbosePkgLists$/VerbosePkgLists/;
 s/^#ParallelDownloads = 5$/ParallelDownloads = 5/;
-94 s/# *//;
-95 s/# *//;" /etc/pacman.conf
+91 s/# *//;
+92 s/# *//;" /etc/pacman.conf
 
 mkdir -pv /etc/pacman.d/hooks
 #cp -r etc/pacman.d/hooks/* /etc/pacman.d/hooks/
