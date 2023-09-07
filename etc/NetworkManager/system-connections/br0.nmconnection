@@ -1,0 +1,12 @@
+[connection]
+id=br0
+permissions=
+interface-name=br0
+type=bridge
+[ipv4]
+method=auto
+[ipv6]
+method=auto
+[bridge]
+stp=false
+forward-delay=15
