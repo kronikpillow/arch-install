@@ -2,7 +2,6 @@
 echo "configuring network settings"
 
 touch /etc/hostname
-
 grep -q "susanoo" /etc/hostname || echo "susanoo" >> /etc/hostname
 
 if [ ! -f /etc/hostname.bak ];
@@ -19,7 +18,7 @@ then cp /etc/hosts /etc/hosts.bak && echo "/etc/hosts backed up";
 else echo "/etc/hosts already backed up";
 fi
 
-cp -r etc/NetworkManager/conf.d/* /etc/NetworkManager/conf.d
+cp -r etc/NetworkManager/* /etc/NetworkManager/*
 
 systemctl enable NetworkManager
 

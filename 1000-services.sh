@@ -1,11 +1,10 @@
 #!/bin/sh
-cp -r etc/docker /etc/
 cp -r etc/polkit-1/* /etc/polkit-1/
 cp -r etc/sudoers.d/* /etc/sudoers.d/
 cp -r etc/sysctl.d/* /etc/sysctl.d/
 cp -r etc/systemd/* /etc/systemd/
-chmod +x usr/local/bin/powertune
-cp -r usr/* /usr/
+# chmod +x usr/local/bin/powertune
+# cp -r usr/* /usr/
 
 timedatectl set-timezone Europe/Belgrade
 timedatectl set-ntp true
@@ -32,11 +31,11 @@ systemctl enable reflector.timer
 systemctl start reflector.timer
 systemctl start reflector.service
 
-systemctl enable powertune.service
-systemctl start powertune.service
+# systemctl enable powertune.service
+# systemctl start powertune.service
 
-# systemctl enable avahi-daemon.service
-# systemctl start avahi-daemon.service
+systemctl enable avahi-daemon.service
+systemctl start avahi-daemon.service
 
 systemctl enable firewalld.service
 systemctl start firewalld.service

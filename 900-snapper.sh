@@ -3,17 +3,17 @@ echo "fixing .snapshots subvolume permissions"
 umount /.snapshots
 rm -r /.snapshots
 
-umount /home/kronikpillow/.snapshots
-rm -r /home/kronikpillow/.snapshots
+# umount /home/.snapshots
+# rm -r /home/.snapshots
 
 snapper --no-dbus -c root create-config /
 btrfs subvolume delete /.snapshots
 
-snapper --no-dbus -c home create-config /home/kronikpillow
-btrfs subvolume delete /home/kronikpillow/.snapshots
+snapper --no-dbus -c home create-config /home/
+#btrfs subvolume delete /home/.snapshots
 
 mkdir -p /.snapshots
-mkdir -p /home/kronikpillow/.snapshots
+#mkdir -p /home/.snapshots
 
 mount -a
 
@@ -21,9 +21,9 @@ chmod 750 /.snapshots
 chmod a+rx /.snapshots
 chown :wheel /.snapshots
 
-chmod 750 /home/kronikpillow/.snapshots
-chmod a+rx /home/kronikpillow/.snapshots
-chown :wheel /home/kronikpillow/.snapshots
+chmod 750 /home/.snapshots
+chmod a+rx /home/.snapshots
+chown :wheel /home/.snapshots
 printf "\e[1;32mDone! \e[0m"
 
 echo "configuring root snapper config"
@@ -55,7 +55,7 @@ sed -i '55 c\TIMELINE_LIMIT_YEARLY="0"' /etc/snapper/configs/home
 echo "configuring mlocate to exclude snapshots from updatedb"
 if [ ! -f /etc/updatedb.conf.bak ];
 then cp /etc/updatedb.conf /etc/updatedb.conf.bak && echo "/etc/updatedb.conf backed up";
-else echo "/etc/reflector/reflector.conf already backed up";
+else echo "/etc/updatedb.conf already backed up";
 fi
 
 sed -i '3 c\PRUNENAMES = ".git .hg .svn .snapshots"' /etc/updatedb.conf

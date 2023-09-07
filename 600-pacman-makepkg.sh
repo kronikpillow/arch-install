@@ -28,7 +28,7 @@ then cp /etc/xdg/reflector/reflector.conf /etc/xdg/reflector/reflector.conf.bak 
 else echo "/etc/xdg/reflector/reflector.conf already backed up";
 fi
 
-sed -i '24 c\--latest 25' /etc/xdg/reflector/reflector.conf
+sed -i '24 c\--latest 15' /etc/xdg/reflector/reflector.conf
 sed -i '27 c\--sort rate' /etc/xdg/reflector/reflector.conf
 
 echo "configuring makepkg settings"
