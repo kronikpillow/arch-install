@@ -11,8 +11,8 @@ fi
 
 sed -i '154 s/# *//' /etc/locale.gen
 sed -i '171 s/# *//' /etc/locale.gen
-sed -i '431 s/# *//' /etc/locale.gen
-sed -i '432 s/# *//' /etc/locale.gen
+sed -i '433 s/# *//' /etc/locale.gen
+sed -i '434 s/# *//' /etc/locale.gen
 
 locale-gen
 
