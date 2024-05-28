@@ -48,7 +48,7 @@ cat <<EOF > /mnt/@/.snapshots/1/info.xml
 EOF
 
 # Create the necessary directories for the initial file system
-mkdir -p /mnt/@/.snapshots/1/snapshot/{.snapshots,boot,efi,home,mnt/{btrfs,data,windows-c,windows-d,usb},opt,root,srv,usr/local,var}
+mkdir -p /mnt/@/.snapshots/1/snapshot/{.snapshots,boot/{efi,grub},home,mnt/{btrfs,data,windows-c,windows-d,windows-e,usb},opt,root,srv,usr/local,var}
 
 # Set the initial snapshot as the default for the root subvolume
 btrfs subvolume set-default $(btrfs subvolume list /mnt | grep "@/.snapshots/1/snapshot" | grep -oP '(?<=ID )[0-9]+') /mnt
