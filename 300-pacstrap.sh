@@ -6,63 +6,112 @@ pacstrap_base() {
   echo "Pacstrapping the base system"
 
 packages=(
-base
-base-devel
-linux-zen
-linux-firmware
-intel-ucode
-mtools
-dosfstools
-exfatprogs
-ntfs-3g
-btrfs-progs
-reiserfsprogs
-efibootmgr
-grub
-os-prober
-man-db
-man-pages
-texinfo
-bash-completion
-zsh
-zsh-completions
-fish
-python
-nodejs
-npm
-go
-go-tools
-rust
-neovim
-lf
-git
-rsync
-wget
-plocate
-pkgfile
-fcron
-dbus-broker
-polkit
-pacman-contrib
-pacutils
-arch-install-scripts
-pigz
-pbzip2
-alsa-utils
-wireplumber
-pipewire-alsa
-pipewire-jack
-pipewire-pulse
-gst-plugin-pipewire
-rtkit
-zram-generator
-networkmanager
-firewalld
-grub-btrfs
-inotify-tools
-snapper
-snap-pac
+ "base"
+ "base-devel"
+ "linux"
+ "linux-firmware"
+ "intel-ucode"
+ "mtools"
+ "dosfstools"
+ "exfatprogs"
+ "xfsprogs"
+ "reiserfsprogs"
+ "ntfs-3g"
+ "efibootmgr"
+ "os-prober"
+ "man-db"
+ "man-pages"
+ "bash-completion"
+ "zsh-completions"
+ "python-pip"
+ "npm"
+ "go"
+ "go-tools"
+ "rust"
+ "neovim"
+ "lf"
+ "git"
+ "rsync"
+ "wget"
+ "plocate"
+ "pkgfile"
+ "reflector"
+ "fcron"
+ "dbus-broker"
+ "pacman-contrib"
+ "pacutils"
+ "arch-install-scripts"
+ "pigz"
+ "pbzip2"
+ "alsa-firmware"
+ "alsa-plugins"
+ "alsa-utils"
+ "wireplumber"
+ "pipewire-alsa"
+ "pipewire-jack"
+ "pipewire-pulse"
+ "gst-plugin-pipewire"
+ "rtkit"
+ "zram-generator"
+ "networkmanager"
+ "firewalld"
+ "grub-btrfs"
+ "inotify-tools"
+ "snap-pac"
 )
+
+ base"
+ base-devel"
+ linux"
+ linux-firmware"
+ intel-ucode"
+ mtools"
+ dosfstools"
+ exfatprogs"
+ xfsprogs"
+ reiserfsprogs"
+ ntfs-3g"
+ efibootmgr"
+ os-prober"
+ man-db"
+ man-pages"
+ bash-completion"
+ zsh-completions"
+ python-pip"
+ npm"
+ go"
+ go-tools"
+ rust"
+ neovim"
+ lf"
+ git"
+ rsync"
+ wget"
+ plocate"
+ pkgfile"
+ reflector"
+ fcron"
+ dbus-broker"
+ pacman-contrib"
+ pacutils"
+ arch-install-scripts"
+ pigz"
+ pbzip2"
+ alsa-firmware"
+ alsa-plugins"
+ alsa-utils"
+ wireplumber"
+ pipewire-alsa"
+ pipewire-jack"
+ pipewire-pulse"
+ gst-plugin-pipewire"
+ rtkit"
+ zram-generator"
+ networkmanager"
+ firewalld"
+ grub-btrfs"
+ inotify-tools"
+ snap-pac"
 
   pacman -Sy --needed "${packages[@]}"
 
