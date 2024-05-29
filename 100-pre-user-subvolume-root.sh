@@ -4,19 +4,19 @@
 echo "Creating a BTRFS flat subvolume layout for root"
 
 # Create the subvolume for the kronikpillow user
-btrfs su cr /mnt/@/home/kronikpillow/
+btrfs su cr /mnt/@kronikpillow/
 
 # Create the subvolumes for the kronikpillow user's directories
-btrfs su cr /mnt/@/home/kronikpillow/Documents
-btrfs su cr /mnt/@/home/kronikpillow/Downloads
-btrfs su cr /mnt/@/home/kronikpillow/Music
-btrfs su cr /mnt/@/home/kronikpillow/Pictures
-btrfs su cr /mnt/@/home/kronikpillow/Videos
-btrfs su cr /mnt/@/home/kronikpillow/.cache
-btrfs su cr /mnt/@/home/kronikpillow/.local
-btrfs su cr /mnt/@/home/kronikpillow/.steam
-btrfs su cr /mnt/@/home/kronikpillow/.var
-btrfs su cr /mnt/@/home/kronikpillow/.snapshots
+btrfs su cr /mnt/@kronikpillow/Documents
+btrfs su cr /mnt/@kronikpillow/Downloads
+btrfs su cr /mnt/@kronikpillow/Music
+btrfs su cr /mnt/@kronikpillow/Pictures
+btrfs su cr /mnt/@kronikpillow/Videos
+btrfs su cr /mnt/@kronikpillow/.cache
+btrfs su cr /mnt/@kronikpillow/.local
+btrfs su cr /mnt/@kronikpillow/.steam
+btrfs su cr /mnt/@kronikpillow/.var
+btrfs su cr /mnt/@kronikpillow/.snapshots
 
 # Create the top-level subvolume for the installation system
 btrfs su cr /mnt/@
