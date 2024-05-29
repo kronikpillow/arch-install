@@ -59,7 +59,7 @@ packages=(
  snap-pac
 )
 
-  pacman -Sy --needed "${packages[@]}"
+  pacstrap /mnt "${packages[@]}"
 
   echo "Pacstrap complete."
 }

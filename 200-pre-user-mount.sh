@@ -8,7 +8,7 @@ mount -o defaults,noatime                                                       
 mount -o defaults,noatime,compress=zstd:1,discard=async,space_cache=v2,autodefrag,commit=120,subvol=@/home        /dev/nvme0n1p6  /mnt/home
 mount -o defaults,noatime,compress=zstd:1,discard=async,space_cache=v2,autodefrag,commit=120,subvol=@/opt         /dev/nvme0n1p6  /mnt/opt
 mount -o defaults,noatime,compress=zstd:1,discard=async,space_cache=v2,autodefrag,commit=120,subvol=@/root        /dev/nvme0n1p6  /mnt/root
-mount -o defatuls,noatime,compress=zstd:1,discard=async,space_cache=v2,autodefrag,commit=120,subvol=@/srv         /dev/nvme0n1p6  /mnt/srv
+mount -o defaults,noatime,compress=zstd:1,discard=async,space_cache=v2,autodefrag,commit=120,subvol=@/srv         /dev/nvme0n1p6  /mnt/srv
 mount -o defaults,noatime,compress=zstd:1,discard=async,space_cache=v2,autodefrag,commit=120,subvol=@/usr/local   /dev/nvme0n1p6  /mnt/usr/local
 mount -o defaults,noatime,compress=zstd:1,discard=async,space_cache=v2,autodefrag,commit=120,subvol=@/var         /dev/nvme0n1p6  /mnt/var
 mount -o defaults,noatime,compress=zstd:1,discard=async,space_cache=v2,autodefrag,commit=120,subvolid=5           /dev/sdb1       /mnt/mnt/data
