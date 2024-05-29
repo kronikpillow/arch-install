@@ -13,7 +13,7 @@ done
 echo "Configuring mkinitcpio settings"
 sed -i -e "7 s/.*/MODULES=(btrfs amdgpu)/" \
        -e "14 s/.*/BINARIES=(\/usr\/bin\/btrfs)/" \
-       -e "52 s/.*/HOOKS=(base systemd autodetect keyboard sd-vconsole modconf block filesystems fsck grub-btrfs-overlayfs)/" /etc/mkinitcpio.conf
+       -e "52 s/.*/HOOKS=(base udev autodetect keyboard keymap modconf block filesystems fsck grub-btrfs-overlayfs)/" /etc/mkinitcpio.conf
 
 mkinitcpio -P
 
