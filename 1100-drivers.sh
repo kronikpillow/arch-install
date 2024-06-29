@@ -1,6 +1,5 @@
 #!/bin/sh
 sudo pacman -Sy --needed mesa \
-    mesa-demos \
     vulkan-radeon \
     vulkan-tools \
     libva-mesa-driver \

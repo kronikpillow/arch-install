@@ -3,42 +3,28 @@
 # Create a BTRFS flat subvolume layout for root
 echo "Creating a BTRFS flat subvolume layout for root"
 
-# Create the subvolume for the kronikpillow user
-btrfs su cr /mnt/@kronikpillow/
-
-# Create the subvolumes for the kronikpillow user's directories
-btrfs su cr /mnt/@kronikpillow/Documents
-btrfs su cr /mnt/@kronikpillow/Downloads
-btrfs su cr /mnt/@kronikpillow/Music
-btrfs su cr /mnt/@kronikpillow/Pictures
-btrfs su cr /mnt/@kronikpillow/Videos
-btrfs su cr /mnt/@kronikpillow/.cache
-btrfs su cr /mnt/@kronikpillow/.local
-btrfs su cr /mnt/@kronikpillow/.steam
-btrfs su cr /mnt/@kronikpillow/.var
-btrfs su cr /mnt/@kronikpillow/.snapshots
-
 # Create the top-level subvolume for the installation system
-btrfs su cr /mnt/@
+btrfs su cr /mnt/opensuse/@
 
 # Create the necessary directories for the root subvolume
-mkdir -p /mnt/@/{boot,usr}
+mkdir -p /mnt/opensuse/@/{boot,usr}
 
 # Create the subvolumes for the various directories
-btrfs su cr /mnt/@/var
-btrfs su cr /mnt/@/usr/local
-btrfs su cr /mnt/@/srv
-btrfs su cr /mnt/@/root
-btrfs su cr /mnt/@/opt
-btrfs su cr /mnt/@/boot/grub
-btrfs su cr /mnt/@/home
+btrfs su cr /mnt/opensuse/@/var
+chattr +C   /mnt/opensuse/@/var
+btrfs su cr /mnt/opensuse/@/usr/local
+btrfs su cr /mnt/opensuse/@/srv
+btrfs su cr /mnt/opensuse/@/root
+btrfs su cr /mnt/opensuse/@/opt
+btrfs su cr /mnt/opensuse/@/home
+btrfs su cr /mnt/opensuse/@/boot/grub
 
 # Create the snapshot directory and the initial snapshot
-btrfs su cr /mnt/@/.snapshots
-mkdir -p /mnt/@/.snapshots/1
-btrfs su cr /mnt/@/.snapshots/1/snapshot
-touch /mnt/@/.snapshots/1/info.xml
-cat <<EOF > /mnt/@/.snapshots/1/info.xml
+btrfs su cr /mnt/opensuse/@/.snapshots
+mkdir -p /mnt/opensuse/@/.snapshots/1
+btrfs su cr /mnt/opensuse/@/.snapshots/1/snapshot
+touch /mnt/opensuse/@/.snapshots/1/info.xml
+cat << EOF >> /mnt/opensuse/@/.snapshots/1/info.xml
 <?xml version="1.0"?>
 <snapshot>
   <type>single</type>
@@ -47,18 +33,22 @@ cat <<EOF > /mnt/@/.snapshots/1/info.xml
   <description>first root filesystem</description>
 </snapshot>
 EOF
+chmod 600 /mnt/@/.snapshots/1/info.xml
+
 
 # Create the necessary directories for the initial file system
-mkdir -p /mnt/@/.snapshots/1/snapshot/{.snapshots,boot/{efi,grub},home,mnt/{btrfs,data,windows-c,windows-d,windows-e,usb},opt,root,srv,usr/local,var}
+mkdir -p /mnt/opensuse/@/.snapshots/1/snapshot/{.snapshots,boot/grub,efi,home,mnt/{btrfs,data,usb},opt,root,srv,usr/local,var}
 
 # Set the initial snapshot as the default for the root subvolume
-btrfs subvolume set-default $(btrfs subvolume list /mnt | grep "@/.snapshots/1/snapshot" | grep -oP '(?<=ID )[0-9]+') /mnt
+btrfs subvolume set-default $(btrfs subvolume list /mnt/opensuse | grep "@/.snapshots/1/snapshot" | grep -oP '(?<=ID )[0-9]+') /mnt/opensuse
 
 # Enable BTRFS quota
-btrfs quota enable /mnt
+btrfs quota enable /mnt/opensuse
+btrfs qgroup create 1/0 /mnt/opensuse
 
 # Display the list of subvolumes
-btrfs subvolume list -t /mnt
+btrfs subvolume list -t /mnt/opensuse
+
 
 # Print a success message
 printf "\e[1;32m Btrfs subvolume layout with snapper rollback capabilities created. \e[0m"

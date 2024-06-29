@@ -17,6 +17,7 @@ fix_snapshots_permissions()
 	mkdir -p "$SNAPSHOT_DIR"
 	mount -a
 
+	chmod 750 "$SNAPSHOT_DIR"
 	chmod a+rx "$SNAPSHOT_DIR"
 	chown :wheel "$SNAPSHOT_DIR"
 
