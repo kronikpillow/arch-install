@@ -37,7 +37,7 @@ chmod 600 /mnt/@/.snapshots/1/info.xml
 
 
 # Create the necessary directories for the initial file system
-mkdir -p /mnt/opensuse/@/.snapshots/1/snapshot/{.snapshots,boot/grub,efi,home,mnt/{btrfs,data,usb},opt,root,srv,usr/local,var}
+mkdir -p /mnt/opensuse/@/.snapshots/1/snapshot/{.snapshots,boot/{efi,grub},home,mnt/{btrfs,data,usb},opt,root,srv,usr/local,var}
 
 # Set the initial snapshot as the default for the root subvolume
 btrfs subvolume set-default $(btrfs subvolume list /mnt/opensuse | grep "@/.snapshots/1/snapshot" | grep -oP '(?<=ID )[0-9]+') /mnt/opensuse
@@ -45,10 +45,10 @@ btrfs subvolume set-default $(btrfs subvolume list /mnt/opensuse | grep "@/.snap
 # Enable BTRFS quota
 btrfs quota enable /mnt/opensuse
 btrfs qgroup create 1/0 /mnt/opensuse
+btrfs qgroup create 1/1 /mnt/opensuse
 
 # Display the list of subvolumes
 btrfs subvolume list -t /mnt/opensuse
-
 
 # Print a success message
 printf "\e[1;32m Btrfs subvolume layout with snapper rollback capabilities created. \e[0m"

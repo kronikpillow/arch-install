@@ -20,7 +20,6 @@ audio_packages=(
   libdvdcss
   noise-suppression-for-voice
   helvum
-  pavucontrol
   pulsemixer
   lib32-pipewire
   lib32-pipewire-jack
@@ -29,29 +28,6 @@ audio_packages=(
   lib32-gst-plugins-good
   lib32-gstreamer
 )
-
-# File management packages
-# file_management_packages=(
-#   gvfs
-#   gvfs-afc
-#   gvfs-gphoto2
-#   gvfs-mtp
-#   gvfs-nfs
-#   gvfs-smb
-#   xdg-user-dirs-gtk
-#   mtpfs
-# )
-
-# Tumbler packages
-# tumbler_packages=(
-#   tumbler
-#   ffmpegthumbnailer
-#   freetype2
-#   libgsf
-#   libopenraw
-#   poppler-glib
-#   poppler-qt5
-# )
 
 # System and utility packages
 system_utility_packages=(

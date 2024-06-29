@@ -11,17 +11,15 @@ packages=(
  linux
  linux-firmware
  intel-ucode
- mtools
- dosfstools
  exfatprogs
  ntfs-3g
  btrfs-progs
  reiserfsprogs
  efibootmgr
  grub
- os-prober
  man-db
  man-pages
+ texinfo
  bash
  bash-completion
  zsh
@@ -67,7 +65,6 @@ packages=(
  grub-btrfs
  inotify-tools
  snapper
- snap-pac
 )
 
   pacstrap /mnt/opensuse "${packages[@]}"

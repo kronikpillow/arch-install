@@ -16,7 +16,6 @@ sed -i "s|^#Color$|Color|" "$pacman_conf"
 sed -i "/ILoveCandy/!s/^Color$/Color\nILoveCandy/" "$pacman_conf"
 sed -i "s|^#VerbosePkgLists$|VerbosePkgLists|" "$pacman_conf"
 sed -i "s|^#ParallelDownloads = 5$|ParallelDownloads = 5|" "$pacman_conf"
-sed -i "0,/^\[multilib\]$/ s|^#Include = /etc/pacman.d/mirrorlist$|Include = /etc/pacman.d/mirrorlist|" "$pacman_conf"
 
 # Configure makepkg
 makepkg_conf="/etc/makepkg.conf"
