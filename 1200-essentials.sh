@@ -2,11 +2,6 @@
 
 # Audio packages
 audio_packages=(
-  wireplumber
-  pipewire-alsa
-  pipewire-jack
-  pipewire-pulse
-  rtkit
   gst-libav
   gst-plugins-bad
   gst-plugins-base
@@ -35,7 +30,6 @@ system_utility_packages=(
   pacman-contrib
   pacutils
   inxi
-  radeontop
   iotop
   schedtool
   usbutils
@@ -62,22 +56,20 @@ system_utility_packages=(
   lynx
   fd
   ripgrep
-  autoconf-archive
-  cmake
-  jsoncpp
-  rhash
+  fzf
+  wl-clipboard
+  socat
 )
 
 # Media and productivity packages
 media_productivity_packages=(
-  wl-clipboard
+  ffmpeg
+  mpv
   yt-dlp
-  fzf
-  bat
-  socat
+  mediainfo
 )
+
 #  mpd
-#  mpv
 #  mpc
 #  ncmpcpp
 #  newsboat
@@ -86,15 +78,12 @@ media_productivity_packages=(
 #  zathura
 #  zathura-pdf-mupdf
 #  poppler
-#  mediainfo
 #  task-spooler
 #  moreutils
 #  viewnior
 
 # Install packages using arrays
-sudo pacman -Sy --needed --noconfirm \
+sudo pacman -Sy --needed \
 "${audio_packages[@]}" \
 "${system_utility_packages[@]}" \
 "${media_productivity_packages[@]}"
-#"${file_management_packages[@]}" \
-#"${tumbler_packages[@]}" \

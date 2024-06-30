@@ -24,6 +24,7 @@ packages=(
  bash-completion
  zsh
  zsh-completions
+ fish
  python
  python-pip
  python-pipx
@@ -33,7 +34,6 @@ packages=(
  go-tools
  rust
  ruby
- ruby-irb
  neovim
  lf
  git
@@ -57,7 +57,6 @@ packages=(
  pipewire-alsa
  pipewire-jack
  pipewire-pulse
- gst-plugin-pipewire
  rtkit
  zram-generator
  networkmanager
@@ -65,24 +64,14 @@ packages=(
  grub-btrfs
  inotify-tools
  snapper
+ fastfetch
+ bat
+ eza
 )
 
   pacstrap /mnt/opensuse "${packages[@]}"
 
   echo "Pacstrap complete."
-}
-
-backup_grub_d() {
-	# List of files to backup
-	grub_d_backup=("/mnt/opensuse/etc/grub.d/10_linux" "/mnt/opensuse/etc/grub.d/20_linux_xen")
-
-	for file in "${grub_d_backup[@]}"; do
-		if [ ! -f "$file.bak" ]; then
-			cp "$file" "$file.bak" && printf "\e[1;33m%s backed up\e[0m\n" "$file"
-		else
-			printf "\e[1;33m%s already backed up\e[0m\n" "$file"
-		fi
-	done
 }
 
 # Function to modify grub files
@@ -139,7 +128,6 @@ modify_fstab() {
 
 # Main script logic
 pacstrap_base
-backup_grub_d
 modify_grub_d
 generate_fstab
 backup_fstab

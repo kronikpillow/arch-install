@@ -26,4 +26,6 @@ then cp /etc/locale.conf /etc/locale.conf.bak && echo "/etc/locale.conf backed u
 else echo "/etc/locale.conf already backed up";
 fi
 
+systemctl enable NetworkManager
+
 printf "\e[1;32mDone! \e[0m"
