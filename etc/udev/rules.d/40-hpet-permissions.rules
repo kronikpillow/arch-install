@@ -1,3 +1,0 @@
-# Hpet permissions
-KERNEL=="rtc0", GROUP="realtime"
-KERNEL=="hpet", GROUP="realtime"

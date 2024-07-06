@@ -5,6 +5,7 @@ sudo pacman -Sy --needed mesa \
     libva-mesa-driver \
     libva-utils \
     mesa-vdpau \
+    libva-nvidia-driver \
     vdpauinfo \
     mesa-utils \
     vulkan-mesa-layers \
