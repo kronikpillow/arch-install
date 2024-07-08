@@ -1,7 +1,9 @@
 #!/bin/sh
 echo "configuring network settings"
 
-touch /etc/hostname
+if [ ! -f /etc/hostname ];
+then touch /etc/hostname;
+
 grep -q "susanoo" /etc/hostname || echo "susanoo" >> /etc/hostname
 
 if [ ! -f /etc/hostname.bak ];

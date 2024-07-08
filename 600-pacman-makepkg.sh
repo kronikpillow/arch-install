@@ -17,6 +17,12 @@ sed -i "/ILoveCandy/!s/^Color$/Color\nILoveCandy/" "$pacman_conf"
 sed -i "s|^#VerbosePkgLists$|VerbosePkgLists|" "$pacman_conf"
 sed -i "s|^#ParallelDownloads = 5$|ParallelDownloads = 5|" "$pacman_conf"
 
+if [ -d /var/lib/pacman ]; then
+mv /var/lib/pacman /usr/lib/pacman
+else
+  echo "/var/lib/pacman already moved to /usr/lib/pacman"
+fi
+
 # Configure makepkg
 makepkg_conf="/etc/makepkg.conf"
 makepkg_conf_bak="/etc/makepkg.conf.bak"
@@ -27,6 +33,21 @@ else
   echo "$makepkg_conf already backed up"
 fi
 
-mv /var/lib/pacman /usr/lib/pacman
+numberofcores=$(grep -c ^processor /proc/cpuinfo)
+
+
+case $numberofcores in
+    16|8|6|4|2)
+        echo "You have $numberofcores cores."
+        echo "Changing the makeflags for $numberofcores cores."
+        sudo sed -i "s/#MAKEFLAGS=\"-j2\"/MAKEFLAGS=\"-j$((numberofcores+1))\"/g" /etc/makepkg.conf
+        echo "Changing the compression settings for $numberofcores cores."
+        sudo sed -i "s/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -c -T $numberofcores -z -)/g" /etc/makepkg.conf
+        ;;
+    *)
+        echo "We do not know how many cores you have."
+        echo "Do it manually."
+        ;;
+esac
 
 printf "\e[1;32mDone! \e[0m"

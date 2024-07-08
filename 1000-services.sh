@@ -5,8 +5,8 @@ timedatectl set-ntp true
 
 hostnamectl set-hostname susanoo
 
-# systemctl enable fcron.service
-# systemctl start fcron.service
+systemctl enable fcron.service
+systemctl start fcron.service
 
 systemctl enable grub-btrfsd.service
 systemctl start grub-btrfsd.service

@@ -11,9 +11,5 @@ mount -o defaults,noatime,compress=zstd:1,discard=async,space_cache=v2,autodefra
 mount -o defaults,noatime,compress=zstd:1,discard=async,space_cache=v2,autodefrag,subvol=@/srv                    /dev/nvme0n1p2  /mnt/opensuse/srv
 mount -o defaults,noatime,compress=zstd:1,discard=async,space_cache=v2,autodefrag,subvol=@/usr/local              /dev/nvme0n1p2  /mnt/opensuse/usr/local
 mount -o defaults,noatime,nodatacow,subvol=@/var                                                                  /dev/nvme0n1p2  /mnt/opensuse/var
-#mount -o defaults,noatime,nodatacow,subvol=@/containers       /dev/sda1       /mnt/opensuse/var/lib/containers
-#mount -o defaults,noatime,nodatacow,subvol=@/libvirt          /dev/sda1       /mnt/opensuse/var/lib/libvirt
-#mount -o defaults,noatime,nodatacow,subvol=@/machines         /dev/sda1       /mnt/opensuse/var/lib/machines
-#mount -o defaults,noatime,nodatacow,subvol=@/podman           /dev/sda1       /mnt/opensuse/var/lib/podman
 
 printf "\e[1;32mDone! \e[0m"

@@ -46,6 +46,7 @@ btrfs subvolume set-default $(btrfs subvolume list /mnt/opensuse | grep "@/.snap
 btrfs quota enable /mnt/opensuse
 btrfs qgroup create 1/0 /mnt/opensuse
 btrfs qgroup create 1/1 /mnt/opensuse
+btrfs qgroup create 1/2 /mnt/opensuse
 
 # Display the list of subvolumes
 btrfs subvolume list -t /mnt/opensuse
