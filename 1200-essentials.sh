@@ -30,6 +30,7 @@ system_utility_packages=(
   pacman-contrib
   pacutils
   inxi
+  powertop
   iotop
   schedtool
   usbutils
@@ -57,8 +58,8 @@ system_utility_packages=(
   fd
   ripgrep
   fzf
-  wl-clipboard
   socat
+  xclip
 )
 
 # Media and productivity packages
@@ -73,7 +74,7 @@ media_productivity_packages=(
 #  mpc
 #  ncmpcpp
 #  newsboat
-#  xclip
+#  wl-clipboard
 #  xdotool
 #  zathura
 #  zathura-pdf-mupdf

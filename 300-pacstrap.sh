@@ -34,6 +34,8 @@ packages=(
  go-tools
  rust
  ruby
+ luajit
+ luarocks
  neovim
  lf
  git

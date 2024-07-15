@@ -10,8 +10,8 @@ else echo "/etc/locale.gen already backed up";
 fi
 
 sed -i '154 s/# *//' /etc/locale.gen
-#sed -i '171 s/# *//' /etc/locale.gen
-#sed -i '433 s/# *//' /etc/locale.gen
+sed -i '171 s/# *//' /etc/locale.gen
+sed -i '433 s/# *//' /etc/locale.gen
 sed -i '434 s/# *//' /etc/locale.gen
 
 locale-gen
@@ -25,7 +25,5 @@ if [ ! -f /etc/locale.conf.bak ];
 then cp /etc/locale.conf /etc/locale.conf.bak && echo "/etc/locale.conf backed up";
 else echo "/etc/locale.conf already backed up";
 fi
-
-systemctl enable NetworkManager
 
 printf "\e[1;32mDone! \e[0m"

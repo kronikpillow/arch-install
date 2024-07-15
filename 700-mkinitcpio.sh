@@ -16,6 +16,6 @@ echo "Configuring mkinitcpio settings"
 #       -e "3 s/.*/FILES=()/" \
 #       -e "4 s/.*/HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block filesystems fsck grub-btrfs-overlayfs)" /etc/mkinitcpio.conf.d/mkinitcpio.conf
 
-mkinitcpio -P
+# mkinitcpio -P
 
 printf "\e[1;32m%s\e[0m\n" "Done!"

@@ -3,6 +3,7 @@ echo "configuring network settings"
 
 if [ ! -f /etc/hostname ];
 then touch /etc/hostname;
+fi
 
 grep -q "susanoo" /etc/hostname || echo "susanoo" >> /etc/hostname
 
@@ -21,5 +22,7 @@ if [ ! -f /etc/hosts.bak ];
 then cp /etc/hosts /etc/hosts.bak && echo "/etc/hosts backed up";
 else echo "/etc/hosts already backed up";
 fi
+
+systemctl enable NetworkManager
 
 printf "\e[1;32mDone! \e[0m"
