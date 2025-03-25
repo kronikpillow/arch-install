@@ -12,14 +12,16 @@ echo
 
 target="/mnt"
 
-# Partition disk (assuming GPT partitioning)
+# -------------------------
+# Partition disk (assuming GPT)
+# -------------------------
 echo -e "o\nY\nn\n\n\n+512M\nef00\nn\n\n\n\n\nw\nY\n" | gdisk "$disk"
 
 # Format partitions
 mkfs.fat -F32 "${disk}1"
 mkfs.btrfs -f "${disk}2"
 
-# Mount the filesystem
+# Mount and setup Btrfs
 mount_flags="defaults,noatime,compress=zstd,ssd,discard=async,space_cache=v2,autodefrag"
 mount -o "$mount_flags" --mkdir "${disk}2" $target
 
@@ -39,8 +41,8 @@ btrfs quota enable $target
 btrfs qgroup create 1/0 $target
 
 # Disable COW on specific subvolumes
-for nocow in @/var/cache/pacman/pkg @/var/log @/var/lib/libvirt/images @/var/lib/containers; do
-  chattr +C "$target/$nocow"
+for nocow in @/var/cache/pacman/pkg @/var/log @/var/lib/libvirt/images @/var/lib/containers @/var/lib/flatpak; do
+  chattr +C "$target/$nocow" 2>/dev/null || echo "Warning: chattr +C failed for $nocow"
 done
 
 # Remount the default subvolume for installation
@@ -57,7 +59,9 @@ done
 # Mount EFI partition separately
 mount -o defaults,noatime --mkdir "${disk}1" $target/boot/EFI
 
-# Pacstrap packages
+# -------------------------
+# Install base system
+# -------------------------
 pacstrap_packages=(
   # Base Packages
   base base-devel linux linux-headers linux-firmware btrfs-progs e2fsprogs xfsprogs f2fs-tools nilfs-utils jfsutils dosfstools mkinitcpio lvm2 mdadm cryptsetup device-mapper diffutils texinfo inetutils less logrotate man-db man-pages os-prober perl python s-nail sudo sysfsutils which chwd plymouth efibootmgr grub netctl lsb-release
@@ -94,28 +98,86 @@ pacstrap_packages=(
 
   # Some Applications
   bat eza fastfetch fish fzf tealdeer btop duf findutils git inxi plocate poppler-glib pv rsync sed unrar unzip xz ffmpegthumbnailer gst-libav gst-plugins-pipewire gst-plugins-bad gst-plugins-ugly libdvdcss libgsf libopenraw wget vi ripgrep vim python-defusedxml python-packaging haveged efitools nfs-utils ntp
+
+  # Install AMD graphics and 32-bit OpenCL support
+  lib32-mesa lib32-vulkan-radeon mesa vulkan-radeon xf86-video-amdgpu
 )
 pacstrap $target "${pacstrap_packages[@]}"
 
-# Generate and modify fstab
-
-# Configure makepkg
-cat >$target/etc/makepkg.conf <<EOF
-CFLAGS="-march=native -O2 -pipe"
-CXXFLAGS="-march=native -O2 -pipe"
-MAKEFLAGS="-j$(nproc)"
-COMPRESSXZ=(xz -c -T $(nproc) -z -)
-EOF
-
-# Backup files before modifying
-sed -i 's/PRUNENAMES = ".git .hg .svn"/PRUNENAMES = ".git .hg .svn .snapshots"/' $target/etc/updatedb.conf
-for file in /etc/pacman.conf /etc/makepkg.conf /etc/locale.gen /etc/locale.conf /etc/hostname /etc/hosts /etc/fstab /etc/mkinitcpio.conf /etc/default/grub /etc/default/grub-btrfs/config; do
-  [ -f "$target\$file" ] && cp "$target\$file" "$target\$file.bak"
-done
+# -------------------------
+# Generate fstab
+# -------------------------
 genfstab -U $target >>$target/etc/fstab
-cp $target/etc/fstab $target/etc/fstab.bak
 
-# Create /etc/mkinitcpio.conf.d/btrfs.conf with necessary modules and hooks
+# Backup key config files
+for file in /etc/fstab /etc/pacman.conf /etc/makepkg.conf /etc/locale.gen /etc/locale.conf /etc/hostname /etc/hosts /etc/mkinitcpio.conf /etc/default/grub /etc/default/grub-btrfs/config; do
+  [ -f "$target$file" ] && cp "$target$file" "$target$file.bak"
+done
+
+# Fix fstab subvolid
+sed -i 's/subvolid=.*,//' $target/etc/fstab
+
+# Time zone and locale
+arch-chroot $target hwclock --systohc
+arch-chroot $target ln -sf /usr/share/zoneinfo/Europe/Belgrade /etc/localtime
+echo -e "en_US.UTF-8 UTF-8\nen_GB.UTF-8 UTF-8\nsr_RS@latin UTF-8" >>$target/etc/locale.gen
+arch-chroot $target locale-gen
+echo "LANG=C.UTF-8" >$target/etc/locale.conf
+echo "LANGUAGE=en_US.UTF-8" >>$target/etc/locale.conf
+echo "LC_COLLATE=C" >>$target/etc/locale.conf
+
+# Set hostname and hosts
+echo "$hostname" >$target/etc/hostname
+echo "127.0.0.1 localhost" >>$target/etc/hosts
+echo "::1       localhost ip6-localhost ip6-loopback" >>$target/etc/hosts
+echo "ff02::1   ip6-allnodes" >>$target/etc/hosts
+echo "ff02::2   ip6-allrouters" >>$target/etc/hosts
+echo "127.0.1.1 $hostname" >>$target/etc/hosts
+
+# Enable services inside chroot
+for svc in NetworkManager systemd-resolved systemd-timesyncd avahi-daemon firewalld bluetooth fcron dbus-broker snapper-timeline.timer snapper-cleanup.timer; do
+  arch-chroot $target systemctl enable "$svc"
+done
+
+# -------------------------
+# Configure pacman.conf
+# -------------------------
+pacman_conf="$target/etc/pacman.conf"
+sed -i 's/^#UseSyslog/&#/' "$pacman_conf"
+sed -i 's/^UseSyslog/#UseSyslog/' "$pacman_conf"
+sed -i 's/^#Color/Color/' "$pacman_conf"
+sed -i 's/^Color/Color/' "$pacman_conf"
+sed -i 's/^#NoProgressBar/#NoProgressBar/' "$pacman_conf"
+sed -i 's/^NoProgressBar/#NoProgressBar/' "$pacman_conf"
+sed -i 's/^#PrettyProgressBar/#PrettyProgressBar/' "$pacman_conf"
+sed -i 's/^PrettyProgressBar/#PrettyProgressBar/' "$pacman_conf"
+sed -i 's/^#ILoveCandy/ILoveCandy/' "$pacman_conf"
+sed -i 's/^ILoveCandy/ILoveCandy/' "$pacman_conf"
+sed -i 's/^#CheckSpace/CheckSpace/' "$pacman_conf"
+sed -i 's/^CheckSpace/CheckSpace/' "$pacman_conf"
+sed -i 's/^#VerbosePkgLists/VerbosePkgLists/' "$pacman_conf"
+sed -i 's/^VerbosePkgLists/VerbosePkgLists/' "$pacman_conf"
+sed -i 's/^#ParallelDownloads *= *.*/ParallelDownloads = 5/' "$pacman_conf"
+sed -i 's/^ParallelDownloads *= *.*/ParallelDownloads = 5/' "$pacman_conf"
+sed -i 's/^#DownloadUser *= *.*/DownloadUser = alpm/' "$pacman_conf"
+sed -i 's/^DownloadUser *= *.*/DownloadUser = alpm/' "$pacman_conf"
+sed -i 's/^#DisableSandbox/#DisableSandbox/' "$pacman_conf"
+sed -i 's/^DisableSandbox/#DisableSandbox/' "$pacman_conf"
+
+#
+# -------------------------
+# Makepkg tuning
+# -------------------------
+numberofcores=$(grep -c ^processor /proc/cpuinfo)
+case $numberofcores in
+16 | 8 | 6 | 4 | 2)
+  sed -i "s/#MAKEFLAGS=\"-j2\"/MAKEFLAGS=\"-j$((numberofcores + 1))\"/g" $target/etc/makepkg.conf
+  sed -i "s/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -c -T $numberofcores -z -)/g" $target/etc/makepkg.conf
+  ;;
+*) echo "Unknown core count: $numberofcores" ;;
+esac
+
+# Create /etc/mkinitcpio.conf.d/archlinux.conf with necessary modules and hooks
 mkdir -p /etc/mkinitcpio.conf.d
 cat >/etc/mkinitcpio.conf.d/archlinux.conf <<EOF
 MODULES=(btrfs amdgpu crc32c-intel)
@@ -123,11 +185,6 @@ BINARIES=(/usr/bin/btrfs)
 FILES=()
 HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block filesystems fsck grub-btrfs-overlayfs)
 EOF
-
-# Additional GPU, OpenCL, sysctl, modprobe, and environment config
-
-# Install AMD graphics and 32-bit OpenCL support
-pacstrap_packages+=(lib32-mesa lib32-vulkan-radeon mesa vulkan-radeon xf86-video-amdgpu)
 
 # Create /etc/profile.d/opencl.sh
 mkdir -p /etc/profile.d
@@ -179,7 +236,6 @@ cat >/etc/NetworkManager/conf.d/dns.conf <<EOF
 [main]
 dns=systemd-resolved
 EOF
-systemctl enable systemd-resolved
 
 # Create /etc/sddm.conf.d/10-general.conf
 mkdir -p /etc/sddm.conf.d
@@ -482,12 +538,109 @@ Section "InputClass"
      Option "Tapping" "True"
 EndSection
 EOF
-systemctl enable NetworkManager
-systemctl enable avahi-daemon
-systemctl enable systemd-timesyncd
-systemctl enable firewalld
-systemctl enable bluetooth
-systemctl enable fcron
-systemctl enable dbus-broker
-systemctl enable snapper-timeline.timer
-systemctl enable snapper-cleanup.timer
+
+# Create /etc/default/grub
+cat >$target/etc/default/grub <<EOF
+# GRUB boot loader configuration
+GRUB_DEFAULT='saved'
+GRUB_TIMEOUT='5'
+GRUB_DISTRIBUTOR='Arch Linux'
+GRUB_CMDLINE_LINUX_DEFAULT='nowatchdog nvme_load=YES zswap.enabled=0 splash loglevel=3'
+GRUB_CMDLINE_LINUX=""
+GRUB_PRELOAD_MODULES="part_gpt part_msdos"
+GRUB_TIMEOUT_STYLE=menu
+GRUB_TERMINAL_INPUT=console
+GRUB_GFXMODE=auto
+GRUB_GFXPAYLOAD_LINUX=keep
+GRUB_DISABLE_RECOVERY='true'
+GRUB_DISABLE_SUBMENU='false'
+GRUB_EARLY_INITRD_LINUX_STOCK=''
+EOF
+
+# -------------------------
+# User creation
+# -------------------------
+arch-chroot $target useradd -m -G sys,network,wheel,audio,lp,storage,video,users,rfkill,kronikpillow --btrfs-subvolume-home "$username"
+echo "$username:$user_password" | arch-chroot $target chpasswd
+echo "root:$root_password" | arch-chroot $target chpasswd
+
+# -------------------------
+# GRUB install
+# -------------------------
+arch-chroot $target grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=GRUB --disable-shim-lock
+arch-chroot $target grub-mkconfig -o /boot/grub/grub.cfg
+
+# Remove rootflags from GRUB scripts
+sed -i 's/rootflags=subvol=${rootsubvol}//g' "$target/etc/grub.d/10_linux"
+sed -i 's/rootflags=subvol=${rootsubvol}//g' "$target/etc/grub.d/20_linux_xen"
+
+# -------------------------
+# Snapper snapshot dir logic
+# -------------------------
+echo "Configuring Snapper .snapshots subvolumes"
+arch-chroot $target bash -c '
+SNAPSHOT_DIR=/.snapshots
+HOME_SNAPSHOT_DIR=/home/kronikpillow/.snapshots
+TEMPLATE=/etc/snapper/config-template.conf
+
+cat > "$TEMPLATE" <<EOF
+SUBVOLUME="/"
+FSTYPE="btrfs"
+QGROUP=""
+SPACE_LIMIT="0.5"
+FREE_LIMIT="0.2"
+ALLOW_USERS=""
+ALLOW_GROUPS="wheel"
+SYNC_ACL="no"
+BACKGROUND_COMPARISON="yes"
+NUMBER_CLEANUP="yes"
+NUMBER_MIN_AGE="1800"
+NUMBER_LIMIT="50"
+NUMBER_LIMIT_IMPORTANT="15"
+TIMELINE_CREATE="no"
+TIMELINE_CLEANUP="yes"
+TIMELINE_MIN_AGE="1800"
+TIMELINE_LIMIT_HOURLY="5"
+TIMELINE_LIMIT_DAILY="7"
+TIMELINE_LIMIT_WEEKLY="0"
+TIMELINE_LIMIT_MONTHLY="0"
+TIMELINE_LIMIT_YEARLY="0"
+EMPTY_PRE_POST_CLEANUP="yes"
+EMPTY_PRE_POST_MIN_AGE="1800"
+EOF
+
+umount "$SNAPSHOT_DIR" 2>/dev/null || true
+rm -rf "$SNAPSHOT_DIR"
+
+snapper --no-dbus -c root create-config /
+snapper --no-dbus -c home create-config /home/kronikpillow
+
+cp -f "$TEMPLATE" /etc/snapper/configs/root
+sed -i "s|SUBVOLUME=.*|SUBVOLUME=\"/home/kronikpillow\"|" "$TEMPLATE"
+cp -f "$TEMPLATE" /etc/snapper/configs/home
+
+btrfs subvolume delete "$SNAPSHOT_DIR" 2>/dev/null || true
+
+mkdir -p "$SNAPSHOT_DIR" "$HOME_SNAPSHOT_DIR"
+chmod 750 "$SNAPSHOT_DIR" "$HOME_SNAPSHOT_DIR"
+mount -a
+chmod 750 "$SNAPSHOT_DIR" "$HOME_SNAPSHOT_DIR"
+chmod a+rx "$SNAPSHOT_DIR" "$HOME_SNAPSHOT_DIR"
+chown :wheel "$SNAPSHOT_DIR" "$HOME_SNAPSHOT_DIR"
+'
+
+# -------------------------
+# Sudoers config
+# -------------------------
+echo "%wheel ALL=(ALL) ALL" >$target/etc/sudoers.d/10-wheel-can-sudo
+chmod 440 $target/etc/sudoers.d/10-wheel-can-sudo
+
+# -------------------------
+# Updatedb config
+# -------------------------
+sed -i 's/PRUNENAMES = ".git .hg .svn"/PRUNENAMES = ".git .hg .svn .snapshots"/' $target/etc/updatedb.conf
+
+# -------------------------
+# Done
+# -------------------------
+echo -e "\e[1;32mSystem installed successfully. You may reboot.\e[0m"
